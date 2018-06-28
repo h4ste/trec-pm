@@ -1,0 +1,43 @@
+{
+  "matchedTerms": [
+    {
+      "searchTerm": "CDK4",
+      "geneName": "CDK4",
+      "geneLongName": "cyclin dependent kinase 4",
+      "geneCategories": [
+        "G PROTEIN COUPLED RECEPTOR",
+        "TRANSPORTER"
+      ],
+      "interactions": [
+        {
+          "interactionId": "c0872763-cc8e-46e1-b570-9473f626b799",
+          "interactionType": "antagonist",
+          "drugName": "GLYCOPYRROLATE",
+          "source": "TTD"
+        },
+        {
+          "interactionId": "57929626-e18e-4fc2-950c-d2390dde59ce",
+          "interactionType": "n/a",
+          "drugName": "GLYCOPYRROLATE",
+          "source": "TEND"
+        }
+      ]
+    }
+  ],
+  "unmatchedTerms" : [
+    {
+      "searchTerm" : "MM1",
+      "suggestions" : [
+        "PFDN5",
+        "PLXNB2"
+      ]
+    },
+    {
+      "searchTerm" : "FAKE",
+      "suggestions" : [
+
+      ]
+    }
+  ]
+}
+

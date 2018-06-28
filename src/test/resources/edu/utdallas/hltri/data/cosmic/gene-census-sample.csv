@@ -1,0 +1,6 @@
+Gene Symbol,Name,Entrez GeneId,Genome Location,Chr Band,Somatic,Germline,Tumour Types(Somatic),Tumour Types(Germline),Cancer Syndrome,Tissue Type,Molecular Genetics,Role in Cancer,Mutation Types,Translocation Partner,Other Germline Mut,Other Syndrome,Synonyms
+ABI1,abl-interactor 1,10006,10:26748570-26860863,10p11.2,yes,,AML,,,L,Dom,TSG,T,KMT2A,,,"E3B1,ABI1,10006,SSH3BP1,ABI-1"
+ABL1,v-abl Abelson murine leukemia viral oncogene homolog 1,25,9:130835447-130885683,9q34.1,yes,,"CML, ALL, T-ALL",,,L,Dom,oncogene,"T, Mis","BCR, ETV6, NUP214",,,"p150,ABL1,25,ENSG00000097007,P00519,v-abl,bcr/abl,JTK7,c-ABL,ABL"
+ABL2,"c-abl oncogene 2, non-receptor tyrosine kinase",27,1:179107718-179143044,1q24-q25,yes,,AML,,,L,Dom,oncogene,T,ETV6,,,"ARG,ABL2,27,ENSG00000143322,P42684,ABLL,RP11-177A2_3"
+ACKR3,atypical chemokine receptor 3,57007,2:-,2q37.3,yes,,lipoma,,,M,Dom,oncogene,T,HMGA2,,,
+ACSL3,acyl-CoA synthetase long-chain family member 3,2181,2:222908773-222941654,2q36,yes,,prostate,,,E,Dom,,T,ETV1,,,"PRO2194,2181,ACSL3,ENSG00000123983,O95573,FACL3,ACS3"

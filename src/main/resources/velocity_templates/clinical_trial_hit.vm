@@ -1,0 +1,62 @@
+#* @vtlvariable name="number" type="org.apache.velocity.tools.generic.NumberTool" *#
+#* @vtlvariable name="topic" type="edu.utdallas.hltri.trec.pm.AnalyzedTopic" *#
+#* @vtlvariable name="highlighter" type="edu.utdallas.hltri.trec.pm.io.html.HtmlHighlighter" *#
+#* @vtlvariable name="result" type="edu.utdallas.hltri.inquire.lucene.LuceneResult<edu.utdallas.hltri.data.clinical_trials.ClinicalTrial>" *#
+<div>
+    <span class="result-score">$number.format($result.Score)</span>
+    <span class="result-title">$highlighter.highlight($topic, "brief_title", $result.Value.BriefTitle.orElse("Untitled"))</span>
+    #if( $result.Value.OfficialTitle.isPresent() )
+        ($highlighter.highlight($topic, "official_title", $result.Value.OfficialTitle.get()))
+    #end
+    <a class="result-pmid" href="https://clinicaltrials.gov/ct2/show/$result.Value.NctId"
+       target="_blank">[$result.Value.NctId]</a>
+</div>
+
+<div class="result-text">
+    <div><b>Brief Summary</b>
+    $highlighter.highlightWithNewlines($topic, "summary", $result.Value.BriefSummary.orElse("None"))
+    </div>
+</div>
+<div><b>Criteria</b>
+    $highlighter.highlightWithNewlines($topic, "eligibility_criteria", $result.Value.EligibilityCriteria.orElse("None"))
+</div>
+
+<div><span><b>Interventions:</b></span>
+    <span>
+    <ul>
+        #foreach( $intervention in $result.Value.Interventions )
+            <li><div><b>$intervention.Type.toString()</b>: $intervention.Name #if( !$intervention.OtherNames.isEmpty() )$intervention.OtherNames.toString()#end</div></li>
+        #end
+    </ul>
+    </span>
+</div>
+
+<div><span><b>MeSH Terms:</b></span>
+    <span>
+    <ul class="list">
+        #foreach( $term in $result.Value.MeshTerms )
+            <li><small>$highlighter.highlight($topic,"mesh_terms", $term)</small></li>
+        #end
+    </ul>
+    </span>
+</div>
+
+<div><span><b>Keywords:</b></span>
+    <span>
+    <ul class="list">
+        #foreach( $keyword in $result.Value.Keywords )
+            <li><small>$highlighter.highlight($topic, "keywords", $keyword)</small></li>
+        #end
+    </ul>
+    </span>
+</div>
+
+<div><span><b>Citations:</b></span>
+    <span>
+    <ul class="list">
+        #foreach( $citation in $result.Value.ResultPmids )
+            <li><a href="">$citation</a></li>
+        #end
+    </ul>
+    </span>
+</div>

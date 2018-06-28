@@ -1,0 +1,48 @@
+#* @vtlvariable name="result" type="edu.utdallas.hltri.inquire.lucene.LuceneResult<edu.utdallas.hltri.data.medline.MedlineArticle>" *#
+#* @vtlvariable name="number" type="org.apache.velocity.tools.generic.NumberTool" *#
+#* @vtlvariable name="topic" type="edu.utdallas.hltri.trec.pm.AnalyzedTopic" *#
+#* @vtlvariable name="highlighter" type="edu.utdallas.hltri.trec.pm.io.html.HtmlHighlighter" *#
+<div>
+    <span class="result-score">$number.format($result.Score)</span>
+    <span class="result-title">$highlighter.highlight($topic, "article_title", $result.Value.ArticleTitle)</span>
+    <a class="result-pmid" href="https://www.ncbi.nlm.nih.gov/pubmed/$result.Value.PubmedId"
+       target="_blank">[$result.Value.PubmedId]</a>
+
+    <span class="result-journal"><i>$result.Value.JournalTitle</i></span>,
+    <span class="result-year">$result.Value.CreationDate.year</span>.
+</div>
+
+
+<div class="result-text">
+    $highlighter.highlight($topic, "text", $result.Value.AbstractText)
+</div>
+
+<div><span><b>MeSH Terms:</b></span>
+    <span>
+    <ul class="list">
+        #foreach( $term in $result.Value.MeshTerms )
+            <li><small>$highlighter.highlight($topic, "mesh_terms", $term)</small></li>
+        #end
+    </ul>
+    </span>
+</div>
+
+<div><span><b>Chemicals:</b></span>
+    <span>
+    <ul class="list">
+        #foreach( $chem in $result.Value.Chemicals )
+            <li><small>$highlighter.highlight($topic, "chemicals", $chem)</small></li>
+        #end
+    </ul>
+    </span>
+</div>
+
+<div><span><b>Article Types:</b></span>
+    <span>
+    <ul class="list">
+        #foreach( $chem in $result.Value.PublicationTypes )
+            <li><small>$chem</small></li>
+        #end
+    </ul>
+    </span>
+</div>

@@ -1,0 +1,6 @@
+Sample Name	Sample ID	Gene Name	Transcript	Census Gene	Drug Name	ID Mutation	AA Mutation	CDS Mutation	Primary Tissue	Tissue Subtype 1	Tissue Subtype 2	Histology	Histology Subtype 1	Histology Subtype 2	Pubmed Id	CGP Study	Somatic Status	Sample Source	Zygosity	Genome Coordinates (GRCh38)
+27	1069289	KIT	ENST00000288135	Yes	Imatinib	COSM19023	p.N822K	c.?	soft_tissue	fibrous_tissue_and_uncertain_origin	small_intestine	gastrointestinal_stromal_tumour	spindle	NS	15930355		2	1001		:..
+29	1069291	PDGFRA	ENST00000257290	Yes	Imatinib	COSM12432	p.D842V	c.?	soft_tissue	fibrous_tissue_and_uncertain_origin	stomach	gastrointestinal_stromal_tumour	epithelioid	NS	15930355		2	1001	50	:..
+24B	2525710	EGFR	ENST00000275493	Yes	Erlotinib	COSM21943	p.T790M	c.?	lung	NS	NS	carcinoma	adenocarcinoma	NS	27304188		2	1001		:..
+AHAX	1311146	KIT	ENST00000288135	Yes	Imatinib	COSM1311	p.D816H	c.2446G>C	soft_tissue	fibrous_tissue_and_uncertain_origin	mediastinum	gastrointestinal_stromal_tumour	NS	NS	20032375		1	1000	50	4:54733154..54733154
+904076	904076	ABL1	ENST00000318560	Yes	Imatinib	COSM12577	p.G250E	c.749G>A	haematopoietic_and_lymphoid_tissue	NS	NS	haematopoietic_neoplasm	blast_phase_chronic_myeloid_leukaemia	NS	11964322		5	1001		9:130862962..130862962

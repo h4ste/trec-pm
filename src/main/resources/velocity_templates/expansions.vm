@@ -1,0 +1,10 @@
+#* @vtlvariable name="expansions" type="java.util.Map<java.lang.String, java.util.Collection<edu.utdallas.hltri.struct.Weighted<java.lang.String>>>" *#
+<span class="keyphrase-expansions">
+    <ul class="expanders">
+        #foreach ( $expander in $expansions.keySet() )
+            <li>
+                <strong class="mdl-color-text--accent">$expander:</strong> #if( $expansions[$expander].Empty ) none #else <ul class="list expansions"> #foreach( $term in $expansions[$expander] ) <li><span class="expansion"><span class="expansion-term">$term.Value.trim()</span><span class="term-weight expansion-weight">$term.Weight</span></span></li> #end </ul> #end
+            </li>
+        #end
+    </ul>
+ </span>
