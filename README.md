@@ -1,1 +1,3 @@
-# Code for Precision Medicine task of the Text REtrieval Conference (TREC)
+## Medical Information Retrieval System developed for the 2017 Text REtrieval Conference (TREC) Precision Medicine Track (TREC-PM)
+
+Documentation pending.
