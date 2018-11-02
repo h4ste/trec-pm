@@ -28,7 +28,6 @@ public class CosmicIntegrationTest {
     final Collection<String> actualSynonyms = cosmic.getGeneSynonyms("BRAF");
     final Collection<String> expectedSynonyms = new HashSet<>(Arrays.asList(
         "MGC126806",
-        "673",
         "BRAF",
         "ENSG00000157764",
         "MGC138284",

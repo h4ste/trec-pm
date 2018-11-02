@@ -49,6 +49,10 @@ public class GeneticVariant {
     }
   }
 
+  public static GeneticVariant pointMutation(String gene, String locus) {
+    return new GeneticVariant(gene, Mutation.POINT_MUTATION, locus, null);
+  }
+
   public static GeneticVariant pointMutation(String gene, String locus, String exon) {
     return new GeneticVariant(gene, Mutation.POINT_MUTATION, locus, exon);
   }

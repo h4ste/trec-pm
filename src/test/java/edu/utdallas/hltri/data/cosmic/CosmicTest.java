@@ -15,7 +15,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import edu.utdallas.hltri.logging.Logger;
 import edu.utdallas.hltri.trec.pm.GeneticVariant;
 
 import static org.junit.Assert.assertEquals;
@@ -47,7 +46,6 @@ public class CosmicTest {
     final Set<String> expectedSynonyms = new HashSet<>(Arrays.asList(
         "E3B1",
         "ABI1",
-        "10006",
         "SSH3BP1",
         "ABI-1"));
 
