@@ -59,3 +59,37 @@ dependencies {
 	compile 'edu.utdallas.hltri:hltri-util:1.0.1'
 	compile 'edu.utdallas.hltri:inquire:0.1.0'
 }
+
+// Index construction
+createScript('edu.utdallas.hltri.data.cancer_abst.ExtraCancerAbstractIndexer', 'index_abstracts')
+createScript('edu.utdallas.hltri.data.medline.jaxb.JaxbMedlineIndexer', 'index_medline')
+createScript('edu.utdallas.hltri.data.clinical_trials.ClinicalTrialIndexerCli', 'index_trials')
+
+// System execution
+createScript('edu.utdallas.hltri.trec.pm.ui.Driver', 'search_topics')
+createScript('edu.utdallas.hltri.trec.pm.ui.SubmissionMerger', 'merge_runs')
+
+// Creates scripts for entry points
+def createScript(String mainClass, String name) {
+
+	build << {
+		File scriptFolder = new File(projectDir, 'bin')
+		scriptFolder.mkdirs()
+
+		File shellScript = new File(scriptFolder, name + '.sh')
+		shellScript.withPrintWriter {
+			it.println '#!/bin/sh'
+			it.println "java \$JAVA_OPTS -cp ${getRuntimeClasspath()} ${mainClass} \"\$@\""
+		}
+
+		File batchFile = new File(scriptFolder, name + '.bat')
+		batchFile.withPrintWriter {
+			it.println('@ECHO OFF')
+			it.println("java %JAVA_OPTS% -cp ${getRuntimeClasspath()} ${mainClass} %*")
+		}
+	}
+}
+
+String getRuntimeClasspath() {
+	sourceSets.main.runtimeClasspath.collect { it.absolutePath }.join(File.pathSeparator)
+}
