@@ -1,6 +1,17 @@
 package edu.utdallas.hltri.trec.pm.io.html;
 
 import com.google.common.base.Preconditions;
+import edu.utdallas.hltri.inquire.SearchResult;
+import edu.utdallas.hltri.inquire.engines.SearchResultsList;
+import edu.utdallas.hltri.logging.Logger;
+import edu.utdallas.hltri.trec.pm.TrecSettings;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+import java.util.Collection;
+import java.util.Map;
 import org.apache.lucene.analysis.en.EnglishAnalyzer;
 import org.apache.lucene.search.Query;
 import org.apache.velocity.Template;
@@ -10,20 +21,6 @@ import org.apache.velocity.exception.ParseErrorException;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.velocity.tools.ToolManager;
-import org.springframework.beans.MethodInvocationException;
-
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
-import java.util.Collection;
-import java.util.Map;
-
-import edu.utdallas.hltri.inquire.SearchResult;
-import edu.utdallas.hltri.inquire.engines.SearchResultsList;
-import edu.utdallas.hltri.logging.Logger;
-import edu.utdallas.hltri.trec.pm.TrecSettings;
 
 public class HtmlOutputManager<T> {
   private static final Logger log = Logger.get(HtmlOutputManager.class);
@@ -104,8 +101,7 @@ public class HtmlOutputManager<T> {
         log.debug("Generating HTML from Velocity template...");
         template.merge(context, writer);
       }
-    } catch (ResourceNotFoundException | ParseErrorException |
-        MethodInvocationException | IOException e) {
+    } catch (ResourceNotFoundException | ParseErrorException | IOException e) {
       log.error("Failed to generate HTML from Velocity Template", e);
       throw new RuntimeException(e);
     }
