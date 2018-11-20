@@ -58,6 +58,10 @@ dependencies {
 	compile 'edu.utdallas.hltri:medbase:1.0.0'
 	compile 'edu.utdallas.hltri:hltri-util:1.0.1'
 	compile 'edu.utdallas.hltri:inquire:0.1.0'
+
+	// Override version of GATE used by scribe
+	compile 'uk.ac.gate:gate-core:8.5.1'
+	
 }
 
 // Index construction
