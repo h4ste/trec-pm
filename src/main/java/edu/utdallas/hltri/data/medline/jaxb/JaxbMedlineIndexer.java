@@ -168,26 +168,26 @@ public class JaxbMedlineIndexer implements AC {
         (!citationSubsets.contains("AIM") &&
         // We also want citations from any other Index Medicus journals
         !citationSubsets.contains("IM"))) {
-      log.debug("Skipping {} due to Citation Subsets: {}", pmid, citationSubsets);
+      log.trace("Skipping {} due to Citation Subsets: {}", pmid, citationSubsets);
       return false;
     }
 
     final Article article = citation.getArticle();
     if (// Skip articles that don't have an article element (e.g., comments)
         article == null) {
-      log.debug("Skipping {} due to NULL article", pmid);
+      log.trace("Skipping {} due to NULL article", pmid);
       return false;
     }
     if (article.getLanguages() == null ||
         // We are only interested in English articles
         !article.getLanguages().contains("eng")) {
-      log.debug("Skipping {} due to languages: {}", pmid, article.getLanguages());
+      log.trace("Skipping {} due to languages: {}", pmid, article.getLanguages());
       return false;
     }
 
     final Abstract articleAbstract = article.getAbstract();
     if (articleAbstract == null) {
-      log.debug("Skipping {} due to missing abstract", pmid);
+      log.trace("Skipping {} due to missing abstract", pmid);
       return false;
     }
 
