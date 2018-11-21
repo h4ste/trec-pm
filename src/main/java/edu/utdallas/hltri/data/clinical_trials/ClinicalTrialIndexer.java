@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.OptionalInt;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -127,7 +126,8 @@ public class ClinicalTrialIndexer implements  AutoCloseable {
     if (ageString != null) {
       if (!ageString.equals("N/A")) {
         final Matcher matcher = ageRegex.matcher(ageString);
-        assert matcher.matches() : "age |" + ageString + "| was malformed!";
+        final boolean matches = matcher.matches();
+        assert  matches : "age |" + ageString + "| was malformed!";
         int age = Integer.valueOf(matcher.group(1));
         if (matcher.group(2).equalsIgnoreCase("months")) {
           age /= 12;
