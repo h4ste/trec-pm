@@ -60,8 +60,8 @@ dependencies {
 	compile 'edu.utdallas.hltri:inquire:0.1.0'
 
 	// Override version of GATE used by scribe
-	compile 'uk.ac.gate:gate-core:8.5.1'
-	
+	// compile 'uk.ac.gate:gate-core:8.5.1'
+	runtime fileTree(dir: 'lib', include: '*.jar')	
 }
 
 // Index construction
