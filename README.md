@@ -1,8 +1,49 @@
-## Medical Information Retrieval System developed for the 2017 Text REtrieval Conference (TREC) Precision Medicine Track (TREC-PM)
+## Medical Information Retrieval System developed for the 2017 Text REtrieval Conference (TREC) Precision Medicine Track (TREC-PM) 
 
 :construction: Documentation under construction! :construction:
 
-## Indexing the collections
+## :wrench: Building the project
+
+### Compiling the project
+```shell
+./gradelew build
+```
+
+### Installing runtime dependencies
+##### :one: Installing GATE
+```shell
+mkdir -p tools
+pushd tools
+wget 'https://downloads.sourceforge.net/project/gate/gate/8.0/gate-8.0-build4825-BIN.zip'
+unzip gate-8.0-build4825-BIN.zip && rm gate-8.0-build4825-BIN.zip
+export GATE_HOME=$PWD/gate-8.0-build4825-BIN/
+popd
+ ```
+ 
+ ##### :two: Installing GENIA
+ ```shell
+mkdir -p tools
+wget -qO- http://www.nactem.ac.uk/tsujii/GENIA/tagger/geniatagger-3.0.2.tar.gz | tar -C tools -xvzf -
+pushd tools/geniatagger-3.0.2
+make
+popd
+```
+
+##### :three: Installing LingScope
+```shell
+mkdir -p tools/lingscope
+pushd tools/lingscope
+wget -q 'https://downloads.sourceforge.net/project/lingscope/negation_models.zip' 'https://downloads.sourceforge.net/project/lingscope/hedge_models.zip'
+unzip negation_models.zip && rm negation_models.zip
+unzip hedge_models.zip && rm hedge_models.zip
+popd
+mkdir -p lib
+pushd lib
+wget 'https://downloads.sourceforge.net/project/lingscope/lingscope_v3/dist/lingscope.jar' 'https://downloads.sourceforge.net/project/lingscope/lingscope_v3/dist/lib/abner.jar'
+popd
+```
+
+## :books: Indexing the collections
 
 ### Indexing MEDLINE
 Two MEDLINE indexes are supported: a basic index which stores documents in the inverted index (i.e., as Lucene stored fields), and a Lazy index which stores JAXB-parsed articles in a separate forward index (i.e., Lucene docvalues). The Lazy JAXB-based index is preferred.
@@ -21,50 +62,13 @@ sh bin/index_abstracts.sh INDEX_DIR INPUT_DIR1, INPUT_DIR2, ...
 ```
     
 ### Indexing ClinicalTrials.gov
-Clinical trials can be indexed with and without eligibility criteria parsing. To enable parsing eligibility critieria (i.e., detection of inclusion and exclusion criteria), it is necessary to install (1) GATE for sentence splitting, (2) GENIA for tokenization, and (3) LingScope for negation detection.
-
-#### Enabling Eligibility Criteria Parsing
-##### Installing GATE
-```shell
-mkdir -p tools
-pushd tools
-wget 'https://downloads.sourceforge.net/project/gate/gate/8.0/gate-8.0-build4825-BIN.zip'
-unzip gate-8.0-build4825-BIN.zip && rm gate-8.0-build4825-BIN.zip
-export GATE_HOME=$PWD/gate-8.0-build4825-BIN/
-popd
- ```
- 
- ##### Installing GENIA
- ```shell
-mkdir -p tools
-wget -qO- http://www.nactem.ac.uk/tsujii/GENIA/tagger/geniatagger-3.0.2.tar.gz | tar -C tools -xvzf -
-pushd tools/geniatagger-3.0.2
-make
-popd
-```
-
-##### Installing LingScope
-```shell
-mkdir -p tools/lingscope
-pushd tools/lingscope
-wget -q 'https://downloads.sourceforge.net/project/lingscope/negation_models.zip' 'https://downloads.sourceforge.net/project/lingscope/hedge_models.zip'
-unzip negation_models.zip && rm negation_models.zip
-unzip hedge_models.zip && rm hedge_models.zip
-popd
-mkdir -p lib
-pushd lib
-wget 'https://downloads.sourceforge.net/project/lingscope/lingscope_v3/dist/lingscope.jar' 'https://downloads.sourceforge.net/project/lingscope/lingscope_v3/dist/lib/abner.jar'
-popd
-```
-
-#### Indexing Clinical trials
 Execute:
 ```shell
 sh bin/index_trials.sh [-n|--negate] [-D|--delete] INDEX_DIR  TRIAL_INPUT_DIR1, TRIAL_INPUT_DIR2, ...
 ```
     
 
-## Running the system
+## :mag: Running the system
 Execute:
 ```shell
 sh bin/search-topics.sh [-m|--model] [-t|--runtag] TOPICS_FILE OUTPUT_DIR
