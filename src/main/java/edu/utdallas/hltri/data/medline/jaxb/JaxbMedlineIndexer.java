@@ -2,55 +2,6 @@ package edu.utdallas.hltri.data.medline.jaxb;
 
 import com.google.common.base.Preconditions;
 import com.google.common.util.concurrent.MoreExecutors;
-
-import io.protostuff.GraphIOUtil;
-import io.protostuff.LinkedBuffer;
-import io.protostuff.Schema;
-import io.protostuff.runtime.RuntimeSchema;
-import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.core.WhitespaceAnalyzer;
-import org.apache.lucene.analysis.en.EnglishAnalyzer;
-import org.apache.lucene.analysis.miscellaneous.PerFieldAnalyzerWrapper;
-import org.apache.lucene.document.BinaryDocValuesField;
-import org.apache.lucene.document.Document;
-import org.apache.lucene.document.Field.Store;
-import org.apache.lucene.document.LongPoint;
-import org.apache.lucene.document.StringField;
-import org.apache.lucene.document.TextField;
-import org.apache.lucene.index.IndexWriter;
-import org.apache.lucene.index.IndexWriterConfig;
-import org.apache.lucene.index.Term;
-import org.apache.lucene.search.similarities.BM25Similarity;
-import org.apache.lucene.store.Directory;
-import org.apache.lucene.store.NIOFSDirectory;
-import org.apache.lucene.util.BytesRef;
-
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-import java.nio.file.FileVisitOption;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import java.util.zip.GZIPInputStream;
-import java.util.zip.GZIPOutputStream;
-
 import edu.utdallas.hltri.concurrent.BoundedThreadPool;
 import edu.utdallas.hltri.data.medline.jaxb.struct.Abstract;
 import edu.utdallas.hltri.data.medline.jaxb.struct.AffiliationInfo;
@@ -81,6 +32,49 @@ import edu.utdallas.hltri.framework.ProgressLogger;
 import edu.utdallas.hltri.io.AC;
 import edu.utdallas.hltri.logging.Logger;
 import edu.utdallas.hltri.util.Unsafe;
+import io.protostuff.GraphIOUtil;
+import io.protostuff.LinkedBuffer;
+import io.protostuff.Schema;
+import io.protostuff.runtime.RuntimeSchema;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Serializable;
+import java.nio.file.FileVisitOption;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.zip.GZIPInputStream;
+import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.core.WhitespaceAnalyzer;
+import org.apache.lucene.analysis.en.EnglishAnalyzer;
+import org.apache.lucene.analysis.miscellaneous.PerFieldAnalyzerWrapper;
+import org.apache.lucene.document.BinaryDocValuesField;
+import org.apache.lucene.document.Document;
+import org.apache.lucene.document.Field.Store;
+import org.apache.lucene.document.LongPoint;
+import org.apache.lucene.document.StringField;
+import org.apache.lucene.document.TextField;
+import org.apache.lucene.index.IndexWriter;
+import org.apache.lucene.index.IndexWriterConfig;
+import org.apache.lucene.index.Term;
+import org.apache.lucene.search.similarities.BM25Similarity;
+import org.apache.lucene.store.Directory;
+import org.apache.lucene.store.NIOFSDirectory;
+import org.apache.lucene.util.BytesRef;
 
 /**
  * Asynchronous Lucene indexer relying on JAXB Parsing;
@@ -174,7 +168,7 @@ public class JaxbMedlineIndexer implements AC {
         (!citationSubsets.contains("AIM") &&
         // We also want citations from any other Index Medicus journals
         !citationSubsets.contains("IM"))) {
-//      log.debug("Skipping {} due to Citation Subsets: {}", pmid, citationSubsets);
+      log.debug("Skipping {} due to Citation Subsets: {}", pmid, citationSubsets);
       return false;
     }
 
@@ -187,13 +181,13 @@ public class JaxbMedlineIndexer implements AC {
     if (article.getLanguages() == null ||
         // We are only interested in English articles
         !article.getLanguages().contains("eng")) {
-//      log.trace("Skipping {} due to languages: {}", pmid, article.getLanguages());
+      log.debug("Skipping {} due to languages: {}", pmid, article.getLanguages());
       return false;
     }
 
     final Abstract articleAbstract = article.getAbstract();
     if (articleAbstract == null) {
-//      log.debug("Skipping {} due to missing abstract", pmid);
+      log.debug("Skipping {} due to missing abstract", pmid);
       return false;
     }
 
@@ -339,8 +333,8 @@ public class JaxbMedlineIndexer implements AC {
     }
   }
 
-  static <T> CompletableFuture<Void> mergeFutures(List<CompletableFuture<T>> futuresList) {
-    return CompletableFuture.allOf(futuresList.toArray(new CompletableFuture[futuresList.size()]));
+  static <T> CompletableFuture<?> mergeFutures(List<CompletableFuture<T>> futuresList) {
+    return CompletableFuture.allOf(futuresList.toArray(new CompletableFuture[0]));
   }
 
   public static void main(String... args) throws IOException {
@@ -375,21 +369,39 @@ public class JaxbMedlineIndexer implements AC {
         JaxbMedlineIndexer indexer = new JaxbMedlineIndexer(indexDir)) {
       for (final Path file : files) {
         final AtomicInteger numIndexed = new AtomicInteger(0);
+        final AtomicInteger numSkipped = new AtomicInteger(0);
         final AtomicInteger numFailed = new AtomicInteger(0);
         try (final InputStream fileStream = Files.newInputStream(file);
              final GZIPInputStream decompressor = new GZIPInputStream(fileStream)) {
-          final List<CompletableFuture<Void>> articleFutures = parser.streamArticles(decompressor)
-              .map(a -> indexer.indexArticleAsync(a).thenAccept(b -> {
+          final List<CompletableFuture<Boolean>> articleFutures = parser.streamArticles(decompressor)
+              .map(a -> indexer.indexArticleAsync(a)
+                  .whenCompleteAsync((b, t) -> {
+                if (b == null || t != null) {
+                  numFailed.incrementAndGet();
+                  log.debug("Parsing failure", t);
+                  return;
+                }
+
                 if (b) {
                   numIndexed.incrementAndGet();
                 } else {
-                  numFailed.incrementAndGet();
+                  numSkipped.incrementAndGet();
                 }
-              })).collect(Collectors.toList());
+
+              })
+              ).collect(Collectors.toList());
 
           mergeFutures(articleFutures)
-              .thenRun(() -> plog.update("{} indexed ({} failures) from {}",
-                  numIndexed.get(), numFailed.get(), file.getFileName()))
+              .thenRun(() -> {
+                final int failed = numFailed.get();
+                if (failed == 0) {
+                  plog.update("{} indexed ({} skipped{}) from {}",
+                      numIndexed.get(), numSkipped.get(), file.getFileName());
+                } else {
+                  plog.update("{} indexed ({} skipped{}; {} failed) from {}",
+                      numIndexed.get(), numSkipped.get(), failed, file.getFileName());
+                }
+              })
               .join();
         }
       }
