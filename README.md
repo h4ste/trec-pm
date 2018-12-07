@@ -9,6 +9,22 @@
 ./gradelew build
 ```
 
+### Downloading the data
+:construction: pending :construction:
+
+### Obtaining knowledge bases and resources
+##### Obtaining the COSMIC data
+:construction: pending :construction:
+
+##### Obtaining the FDA label data
+:construction: pending :construction:
+
+##### Obtaining DGIdb access
+:construction: pending :construction:
+
+##### Obtaining NCI Thesaurus data
+:construction: pending :construction:
+
 ### Installing runtime dependencies
 ##### :one: Installing GATE
 ```shell
