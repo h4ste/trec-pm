@@ -9,7 +9,7 @@ To compile the project, execute the following command:
 ```shell
 ./gradelew build
 ```
-This will compile the java sources and generate windows (`.bat`) and linux (`.sh`) scripts in the `bin/` directory. 
+This will download what seems like the entire internet, then compile the java sources and generate windows (`.bat`) and linux (`.sh`) scripts in the `bin/` directory. 
 
 ### Downloading the data
 :construction: pending :construction:
