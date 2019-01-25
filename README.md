@@ -1,4 +1,4 @@
-## Medical Information Retrieval System developed for the 2017 Text REtrieval Conference (TREC) Precision Medicine Track (TREC-PM) 
+## Medical Information Retrieval System developed for the 2017 and 2018 Text REtrieval Conference (TREC) Precision Medicine Track (TREC-PM) 
 
 :construction: Documentation under construction! :construction:
 
