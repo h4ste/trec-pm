@@ -7,7 +7,7 @@
 ### Compiling the project
 To compile the project, execute the following command:
 ```shell
-./gradelew build
+./gradlew build
 ```
 This will download what seems like the entire internet, then compile the java sources and generate windows (`.bat`) and linux (`.sh`) scripts in the `bin/` directory. 
 
